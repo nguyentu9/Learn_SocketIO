@@ -8,19 +8,25 @@
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io('http://localhost:3000');
-        document.addEventListener("DOMContentLoaded", function (event) {
-            document.querySelector("#btnSend").addEventListener('click', function () {
-                var s = document.querySelector("#txt").value;
-                socket.emit('demo', s);
+        const socket = io('http://localhost:3000');
+
+        socket.on('Server_send_data', function (data) {
+            document.querySelector('#noidung').append(data + ', ');
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('#btnSend').addEventListener('click', function () {
+                var s = document.querySelector('#txt').value;
+                socket.emit('Client_send_data', s);
             })
         });
     </script>
 </head>
 
 <body>
-    <input type="text" id="txt">
-    <input type="button" value="Send" id='btnSend'>
+    <input type="text" id='txt'>
+    <input type="button" value='Send' id="btnSend">
+    <h2 id='noidung'></h2>
 </body>
 
 </html>
