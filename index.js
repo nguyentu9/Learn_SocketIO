@@ -11,16 +11,17 @@ const io = require('socket.io')(server)
 server.listen(3000)
 
 io.on('connection', function (socket) {
-    console.log('Co nguoi ket noi: ', socket.id)
-    socket.on('demo', function (data) {
-        console.log(data)
+    console.log('Co nguoi ket noi: ' + socket.id)
+
+    socket.on('Client_send_color', function (color) {
+        console.log(color)
+        io.sockets.emit('Server_send_color', color)
     })
 
     socket.on('disconnect', function () {
-        console.log(socket.id + ' ngat ket noi!!!')
+        console.log(socket.id + ' da ngat ket noi!!!')
     })
 })
-
 app.get('/', function (req, res) {
     res.render('home')
 })

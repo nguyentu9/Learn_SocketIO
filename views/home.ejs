@@ -6,21 +6,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .do,
+        .vang,
+        .xanh {
+            width: 100px;
+            height: 100px;
+        }
+
+        .do {
+            background-color: red;
+        }
+
+        .vang {
+            background-color: yellow;
+        }
+
+        .xanh {
+            background-color: green;
+        }
+    </style>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io('http://localhost:3000');
-        document.addEventListener("DOMContentLoaded", function (event) {
-            document.querySelector("#btnSend").addEventListener('click', function () {
-                var s = document.querySelector("#txt").value;
-                socket.emit('demo', s);
+        const socket = io('http://localhost:3000');
+        socket.on('Server_send_color', function (color) {
+            document.querySelector('body').style.backgroundColor = color;
+        })
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.do').addEventListener('click', function () {
+                socket.emit('Client_send_color', 'red');
+            })
+            document.querySelector('.vang').addEventListener('click', function () {
+                socket.emit('Client_send_color', 'yellow');
+            })
+            document.querySelector('.xanh').addEventListener('click', function () {
+                socket.emit('Client_send_color', 'green');
             })
         });
     </script>
 </head>
 
 <body>
-    <input type="text" id="txt">
-    <input type="button" value="Send" id='btnSend'>
+    <div class="do"></div>
+    <div class="vang"></div>
+    <div class="xanh"></div>
 </body>
 
 </html>
