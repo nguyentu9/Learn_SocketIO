@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('http://localhost:3000');
+        document.addEventListener("DOMContentLoaded", function (event) {
+            document.querySelector("#btnSend").addEventListener('click', function () {
+                var s = document.querySelector("#txt").value;
+                socket.emit('demo', s);
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" id="txt">
+    <input type="button" value="Send" id='btnSend'>
+</body>
+
+</html>
